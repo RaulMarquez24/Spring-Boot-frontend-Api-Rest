@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-header">
+        <div class="title">Listado de cursos</div>
+        <div>
+            <button type="button" (click)="toggleHabilitar()" class="btn btn-primary my-3 btn-sm">
+                {{ habilitar ? 'Ocultar' : 'Mostrar' }}
+            </button>
+        </div>
+    </div>
+    <ul class="list-group" *ngIf="habilitar">
+        <li class="list-group-item" *ngFor="let curso of listaCurso">
+            <p>{{curso}}</p>
+        </li>
+    </ul>
+</div>

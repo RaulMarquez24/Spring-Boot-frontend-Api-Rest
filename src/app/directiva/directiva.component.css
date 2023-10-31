@@ -1,0 +1,10 @@
+.card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.title {
+    flex: 1;
+    /* font-size: 3.5ch; */
+}
