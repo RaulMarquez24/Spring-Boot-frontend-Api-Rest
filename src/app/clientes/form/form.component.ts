@@ -36,20 +36,16 @@ export class FormComponent {
     this.clienteService.create(this.cliente).subscribe(
       cliente => {
         this.router.navigate(['/clientes'])
-
-        // Mostrar modal de confirmación
-        alert(`Cliente ${cliente.nombre} creado con éxito!`)
+        alert(`El cliente ${cliente.nombre} ha sido creado con exito!`)
       }
     );
   }
 
   update(): void {
     this.clienteService.update(this.cliente).subscribe(
-      cliente => {
+      json => {
         this.router.navigate(['/clientes'])
-
-        // Mostrar modal de confirmación
-        alert(`Cliente ${cliente.nombre} actualizado con éxito!`)
+        alert(`${json.mensaje}: ${json.cliente.nombre}`)
       }
     );
   }

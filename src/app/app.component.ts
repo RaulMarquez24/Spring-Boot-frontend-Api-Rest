@@ -9,5 +9,4 @@ export class AppComponent {
   title = 'Bienvenido a Angular';
 
   curso: string = 'Curso Spring Boot 3 con Angular 16';
-  profesor: string = 'Andrés Guzmán';
 }
