@@ -25,6 +25,11 @@ export class ClienteService {
     return this.http.post(this.urlEndpoint, cliente, {headers: this.httpHeaders}).pipe(
       map( (response: any) => response.cliente as Cliente),
       catchError(err => {
+
+        if (err.status==400) {
+          return throwError(()=>err);
+        }
+
         alert('Error: '+err.error.mesaje)
         return throwError(()=>err)
       })
@@ -36,7 +41,17 @@ export class ClienteService {
   }
 
   update(cliente: Cliente): Observable<any> {
-    return this.http.put<any>(`${this.urlEndpoint}/${cliente.id}`, cliente, {headers: this.httpHeaders})
+    return this.http.put<any>(`${this.urlEndpoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
+      catchError(err => {
+        
+        if (err.status==400) {
+          return throwError(()=>err);
+        }
+
+        alert('Error: '+err.error.mesaje)
+        return throwError(()=>err)
+      })
+    )
   }
 
   delete(id: number): Observable<Cliente> {

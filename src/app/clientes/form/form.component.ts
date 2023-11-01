@@ -13,6 +13,8 @@ export class FormComponent {
   public titulo: string = "Crear cliente"
   public cliente: Cliente = new Cliente();
 
+  public errores: string[] | undefined;
+
   constructor(
     private clienteService: ClienteService,
     private router: Router,
@@ -37,6 +39,10 @@ export class FormComponent {
       cliente => {
         this.router.navigate(['/clientes'])
         alert(`El cliente ${cliente.nombre} ha sido creado con exito!`)
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error(err.error.errors);
       }
     );
   }
@@ -46,6 +52,10 @@ export class FormComponent {
       json => {
         this.router.navigate(['/clientes'])
         alert(`${json.mensaje}: ${json.cliente.nombre}`)
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error(err.error.errors);
       }
     );
   }
