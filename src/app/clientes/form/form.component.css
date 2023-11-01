@@ -1,0 +1,6 @@
+.error-message {
+    font-size: 12px;
+    padding: 5px;
+    max-height: 30px;
+    overflow: hidden;
+}
