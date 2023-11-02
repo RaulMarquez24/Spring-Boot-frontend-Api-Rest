@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from '../services/cliente.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clientes',
@@ -14,7 +15,14 @@ export class ClientesComponent {
   constructor(private clienteService: ClienteService) { }
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe(
+    this.clienteService.getClientes().pipe(
+      tap(clientes => {
+        console.log('ClientesComponent: tap 3');
+        clientes.forEach(cliente => {
+          console.log(cliente.nombre);
+        });
+      })
+    ).subscribe(
       clientes => this.clientes = clientes
     );
   }
