@@ -4,12 +4,14 @@ import { Cliente } from '../clientes/cliente';
 import { Observable, of, throwError  } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
+import { DatePipe, formatDate, registerLocaleData } from '@angular/common';
+import { GLOBAL } from './global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-  private urlEndpoint:string = 'http://localhost:8081/api/clientes';
+  private urlEndpoint:string = GLOBAL.url+'clientes';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
@@ -17,7 +19,17 @@ export class ClienteService {
   getClientes(): Observable<Cliente[]> {
     // return of(CLIENTES);
     return this.http.get(this.urlEndpoint).pipe(
-      map( response => response as Cliente[] )
+      map( response => {
+        let clientes = response as Cliente[];
+        return clientes.map(cliente => {
+          cliente.nombre = cliente.nombre?.toUpperCase();
+          if (cliente.createAt != undefined && cliente.createAt != null) {
+            // cliente.createAt = formatDate(cliente.createAt, 'EEEE dd, MMMM yyyy', 'es')
+          }
+          return cliente;
+        });
+      }
+      )
     );
   }
 
